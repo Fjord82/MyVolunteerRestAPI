@@ -6,10 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using MyVolunteerAppBLL;
-using MyVolunteerAppBLL.BusinessObjects;
+using MyVolunteerBLL;
+using MyVolunteerBLL.BusinessObjects;
 
 namespace MyVolunteerRestAPI
 {
@@ -39,7 +37,6 @@ namespace MyVolunteerRestAPI
                     new UserBO() {
                     FirstName= "Rasmus",
                     LastName= "Fjord",
-                    UserName = "Jenson25",
                     Email = "hot@gmail.com",
                     Address = "LivingStreet"
                 });
@@ -48,7 +45,6 @@ namespace MyVolunteerRestAPI
                     {
                         FirstName = "Johnny",
                         LastName = "Bravo",
-                        UserName = "HeroGuy",
                         Email = "Lillemand@gmail.com",
                         Address = "HeroCity"
                     });
