@@ -16,7 +16,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "ParlanRestAPI": {
+    "MyVolunteerRestAPI": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "api/values",

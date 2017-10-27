@@ -65,7 +65,6 @@ namespace MyVolunteerBLL.Services
                 }
                 userFromDB.FirstName = user.FirstName;
                 userFromDB.LastName = user.LastName;
-                userFromDB.UserName = user.UserName;
                 userFromDB.Email = user.Email;
                 userFromDB.Address = user.Address;
 

@@ -4,18 +4,19 @@ using MyVolunteerDAL.Entities;
 
 namespace MyVolunteerDAL.Context
 {
-    public class InMemoryContext : DbContext
+    public class MyVolunteerAppContext : DbContext
     {
-        static DbContextOptions<InMemoryContext> options =
-            new DbContextOptionsBuilder<InMemoryContext>()
+        static DbContextOptions<MyVolunteerAppContext> options =
+            new DbContextOptionsBuilder<MyVolunteerAppContext>()
                 .UseInMemoryDatabase("TheDB")
                 .Options;
 
-        public InMemoryContext() : base(options)
+        public MyVolunteerAppContext() : base(options)
         {
             
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Guild> Guilds { get; set; }
     }
 }

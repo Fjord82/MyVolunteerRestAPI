@@ -18,7 +18,6 @@ namespace MyVolunteerBLL.Converters
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                UserName = user.UserName,
                 Email = user.Email,
                 Address = user.Address
             };
@@ -36,7 +35,6 @@ namespace MyVolunteerBLL.Converters
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                UserName = user.UserName,
                 Email = user.Email,
                 Address = user.Address
             };

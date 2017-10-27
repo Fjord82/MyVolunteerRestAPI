@@ -6,64 +6,65 @@ using Microsoft.AspNetCore.Mvc;
 using MyVolunteerBLL;
 using MyVolunteerBLL.BusinessObjects;
 
-
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace MyVolunteerRestAPI.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class UsersController : Controller
+    public class GuildsController : Controller
     {
         BLLFacade facade = new BLLFacade();
 
-        // GET: api/users
+        // GET: api/guilds
         [HttpGet]
-        public IEnumerable<UserBO> Get()
+        public IEnumerable<GuildBO> Get()
         {
-            return facade.UserService.GetAll();
+            return facade.GuildService.GetAll();
         }
 
-        // GET api/users/5
+        // GET api/guilds/5
         [HttpGet("{id}")]
-        public UserBO Get(int id)
+        public GuildBO Get(int id)
         {
-            return facade.UserService.Get(id);
+            return facade.GuildService.Get(id);
         }
 
-        // POST api/users
+        // POST api/guilds
         [HttpPost]
-        public IActionResult Post([FromBody]UserBO user)
+        public IActionResult Post([FromBody]GuildBO guild)
         {
-            if(!ModelState.IsValid) 
+            if(!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            return Ok(facade.UserService.Create(user));
+            return Ok(facade.GuildService.Create(guild));
         }
 
-        // PUT api/users/5
+        // PUT api/guilds/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]UserBO user)
+        public IActionResult Put(int id, [FromBody]GuildBO guild)
         {
-            if(id != user.Id)
+            if(id != guild.Id)
             {
-                return StatusCode(405, "Path id does not match User ID in json object!");
+                return BadRequest("Path Id does not match Guild Id in json object");
             }
             try
             {
-                return Ok(facade.UserService.Update(user));
-            } catch(InvalidOperationException e)
+                var guildUpdated = facade.GuildService.Update(guild);
+                return Ok(guildUpdated);
+            }
+            catch(InvalidOperationException e)
             {
                 return StatusCode(404, e.Message);
             }
         }
 
-        // DELETE api/users/5
+        // DELETE api/guilds/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            facade.UserService.Delete(id);
+            facade.GuildService.Delete(id);
         }
     }
 }

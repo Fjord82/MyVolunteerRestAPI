@@ -4,16 +4,18 @@ using MyVolunteerDAL.Repositories;
 
 namespace MyVolunteerDAL.UnitOfWork
 {
-    public class UnitOfWorkMemory : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         public IUserRepository UserRepository { get; internal set; }
+        public IGuildRepository GuildRepository { get; internal set; }
 
-        private InMemoryContext _context;
+        private MyVolunteerAppContext _context;
 
-        public UnitOfWorkMemory()
+        public UnitOfWork()
         {
-            _context = new InMemoryContext();
+            _context = new MyVolunteerAppContext();
             UserRepository = new UserRepositoryEFMemory(_context);
+            GuildRepository = new GuildRepository(_context);
         }
 
         public int Complete()
