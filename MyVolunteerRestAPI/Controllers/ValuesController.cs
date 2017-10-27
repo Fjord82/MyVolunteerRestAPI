@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MyVolunteerAppBLL.BusinessObjects;
+using MyVolunteerBLL.BusinessObjects;
 
-namespace ParlanRestAPI.Controllers
+namespace MyVolunteerRestAPI.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {

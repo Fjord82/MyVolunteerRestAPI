@@ -22,5 +22,6 @@ namespace MyVolunteerRestAPI
                    .CaptureStartupErrors(true)
                 .UseStartup<Startup>()
                 .Build();
+
     }
 }

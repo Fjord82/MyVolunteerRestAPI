@@ -11,7 +11,7 @@ namespace MyVolunteerDAL
         {
             get
             {
-                return new UnitOfWorkMemory();
+                return new UnitOfWork.UnitOfWork();
             }
         }
     }
