@@ -20,7 +20,6 @@ namespace MyVolunteerDAL.Repositories
                 Id = Id++,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                UserName = user.UserName,
                 Email = user.Email,
                 Address = user.Address
             });

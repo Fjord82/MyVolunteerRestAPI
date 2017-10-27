@@ -22,8 +22,6 @@ namespace MyVolunteerBLL.BusinessObjects
             get { return $"{FirstName} {LastName}"; }
         }
 
-        public string UserName { get; set; }
-
         [Required]
         [EmailAddress]
         public string Email { get; set; }

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using MyVolunteerBLL;
 using MyVolunteerBLL.BusinessObjects;
 
@@ -40,7 +36,6 @@ namespace MyVolunteerRestAPI
                     {
                         FirstName = "Rasmus",
                         LastName = "Fjord",
-                        UserName = "Jenson25",
                         Email = "hot@gmail.com",
                         Address = "LivingStreet"
                     });
@@ -49,11 +44,23 @@ namespace MyVolunteerRestAPI
                     {
                         FirstName = "Johnny",
                         LastName = "Bravo",
-                        UserName = "HeroGuy",
                         Email = "Lillemand@gmail.com",
                         Address = "HeroCity"
                     });
-
+                var guild1 = facade.GuildService.Create(
+                    new GuildBO()
+                    {
+                        GuildName = "Møllelaug",
+                        Description = "Dette laug er et event der skal omhandle det at male korn",
+                        User = user1
+                    });
+                var guild2 = facade.GuildService.Create(
+                    new GuildBO()
+                    {
+                        GuildName = "Smedelaug",
+                        Description = "Metal værkstedet",
+                        User = user1
+                    });
             }
 
             app.UseMvc();

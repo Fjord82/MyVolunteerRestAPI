@@ -10,5 +10,10 @@ namespace MyVolunteerBLL
         {
             get { return new UserService(new DALFacade()); }
         }
+
+        public IGuildService GuildService
+        {
+            get { return new GuildService(new DALFacade()); }
+        }
     }
 }

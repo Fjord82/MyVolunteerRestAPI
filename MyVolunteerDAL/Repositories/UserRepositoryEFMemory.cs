@@ -7,9 +7,9 @@ namespace MyVolunteerDAL.Repositories
 {
     public class UserRepositoryEFMemory : IUserRepository
     {
-        InMemoryContext _context;
+        MyVolunteerAppContext _context;
 
-        public UserRepositoryEFMemory(InMemoryContext context)
+        public UserRepositoryEFMemory(MyVolunteerAppContext context)
         {
             _context = context;
         }
