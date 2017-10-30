@@ -10,16 +10,16 @@ namespace MyVolunteerBLL.Services
     public class UserService : IUserService
     {
         UserConverter conv = new UserConverter();
-        DALFacade facade;
+        DALFacade _facade;
        
         public UserService(DALFacade facade)
         {
-            this.facade = facade;
+            _facade = facade;
         }
 
         public UserBO Create(UserBO user)
         {
-            using (var uow = facade.UnitOfWork)
+            using (var uow = _facade.UnitOfWork)
             {
                 var newUser = uow.UserRepository.Create(conv.Convert(user));
                 uow.Complete();
@@ -29,7 +29,7 @@ namespace MyVolunteerBLL.Services
 
         public UserBO Delete(int Id)
         {
-            using (var uow = facade.UnitOfWork)
+            using (var uow = _facade.UnitOfWork)
             {
                 var newUser = uow.UserRepository.Delete(Id);
                 uow.Complete();
@@ -39,7 +39,7 @@ namespace MyVolunteerBLL.Services
 
         public UserBO Get(int Id)
         {
-            using (var uow = facade.UnitOfWork)
+            using (var uow = _facade.UnitOfWork)
             {
                 return conv.Convert(uow.UserRepository.Get(Id));
             }
@@ -47,7 +47,7 @@ namespace MyVolunteerBLL.Services
 
         public List<UserBO> GetAll()
         {
-            using (var uow = facade.UnitOfWork)
+            using (var uow = _facade.UnitOfWork)
             {
                 //return uow.UserRepository.GetAll();
                 return uow.UserRepository.GetAll().Select(u => conv.Convert(u)).ToList();
@@ -56,7 +56,7 @@ namespace MyVolunteerBLL.Services
 
         public UserBO Update(UserBO user)
         {
-            using (var uow = facade.UnitOfWork)
+            using (var uow = _facade.UnitOfWork)
             {
                 var userFromDB = uow.UserRepository.Get(user.Id);
                 if (userFromDB == null)
@@ -67,6 +67,7 @@ namespace MyVolunteerBLL.Services
                 userFromDB.LastName = user.LastName;
                 userFromDB.Email = user.Email;
                 userFromDB.Address = user.Address;
+
 
                 uow.Complete();
                 return conv.Convert(userFromDB);

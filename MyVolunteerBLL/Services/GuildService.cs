@@ -4,12 +4,14 @@ using System.Linq;
 using MyVolunteerBLL.BusinessObjects;
 using MyVolunteerBLL.Converters;
 using MyVolunteerDAL;
+using MyVolunteerDAL.Entities;
 
 namespace MyVolunteerBLL.Services
 {
     public class GuildService : IGuildService
     {
         GuildConverter conv = new GuildConverter();
+        UserConverter uConv = new UserConverter();
         DALFacade _facade;
 
         public GuildService(DALFacade facade)
@@ -21,7 +23,8 @@ namespace MyVolunteerBLL.Services
         {
             using (var uow = _facade.UnitOfWork)
             {
-                var guildEntity = uow.GuildRepository.Create(conv.Convert(guild));
+                var guildEnt = conv.Convert(guild);
+                 var guildEntity = uow.GuildRepository.Create(guildEnt);
                 uow.Complete();
                 return conv.Convert(guildEntity);
             }
@@ -66,7 +69,9 @@ namespace MyVolunteerBLL.Services
                 }
                 guildEntity.GuildName = guild.GuildName;
                 guildEntity.Description = guild.Description;
+
                 uow.Complete();
+
                 return conv.Convert(guildEntity);
             }
         }

@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using MyVolunteerDAL.Context;
 using MyVolunteerDAL.Entities;
 
 namespace MyVolunteerDAL.Repositories
 {
-    public class UserRepositoryEFMemory : IUserRepository
+    public class UserRepository : IUserRepository
     {
         MyVolunteerAppContext _context;
 
-        public UserRepositoryEFMemory(MyVolunteerAppContext context)
+        public UserRepository(MyVolunteerAppContext context)
         {
             _context = context;
         }
@@ -34,7 +35,10 @@ namespace MyVolunteerDAL.Repositories
 
         public List<User> GetAll()
         {
-            return _context.Users.ToList();
+            return _context.Users
+                           .Include(u => u.Guilds)
+                           .ThenInclude(gu => gu.Guild)
+                           .ToList();
         }
 
     }

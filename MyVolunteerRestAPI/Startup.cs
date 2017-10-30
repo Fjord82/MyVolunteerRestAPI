@@ -33,21 +33,40 @@ namespace MyVolunteerRestAPI
             {
                 app.UseDeveloperExceptionPage();
                 var facade = new BLLFacade();
-                facade.UserService.Create(
-                    new UserBO() {
-                    FirstName= "Rasmus",
-                    LastName= "Fjord",
-                    Email = "hot@gmail.com",
-                    Address = "LivingStreet"
-                });
-                facade.UserService.Create(
+
+                var guild1 = facade.GuildService.Create(
+                    new GuildBO()
+                    {
+                        GuildName = "SmedeLaug",
+                        Description = "Bravo"
+                    });
+
+                var guild2 = facade.GuildService.Create(
+                    new GuildBO()
+                    {
+                        GuildName = "MølleLaug",
+                        Description = "Bravo"
+                    });
+
+                var user1 = facade.UserService.Create(
+                     new UserBO()
+                     {
+                         FirstName = "Rasmus",
+                         LastName = "Fjord",
+                         Email = "hot@gmail.com",
+                         Address = "LivingStreet",
+                         Guilds = new List<GuildBO>() { guild1 }
+                     });
+                var user2 = facade.UserService.Create(
                     new UserBO()
                     {
                         FirstName = "Johnny",
                         LastName = "Bravo",
                         Email = "Lillemand@gmail.com",
-                        Address = "HeroCity"
+                        Address = "HeroCity",
+                    Guilds = new List<GuildBO>() { guild1 }
                     });
+
 
             }
 

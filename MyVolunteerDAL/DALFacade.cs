@@ -1,6 +1,4 @@
-﻿using System;
-using MyVolunteerDAL.Repositories;
-using MyVolunteerDAL.UnitOfWork;
+﻿using MyVolunteerDAL.UOW;
 
 namespace MyVolunteerDAL
 {
@@ -11,7 +9,7 @@ namespace MyVolunteerDAL
         {
             get
             {
-                return new UnitOfWork.UnitOfWork();
+                return new UnitOfWork();
             }
         }
     }

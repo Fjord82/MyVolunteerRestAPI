@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace MyVolunteerBLL.BusinessObjects
 {
     public class GuildBO
@@ -9,6 +11,8 @@ namespace MyVolunteerBLL.BusinessObjects
 
         public string Description { get; set; }
 
-        public UserBO User { get; set; }
+
+        public List<int> UserIds { get; set; }
+        public List<UserBO> Users { get; set; }
     }
 }
