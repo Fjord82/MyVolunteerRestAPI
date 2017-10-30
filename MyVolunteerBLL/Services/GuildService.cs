@@ -24,7 +24,7 @@ namespace MyVolunteerBLL.Services
             using (var uow = _facade.UnitOfWork)
             {
                 var guildEnt = conv.Convert(guild);
-                 var guildEntity = uow.GuildRepository.Create(guildEnt);
+                var guildEntity = uow.GuildRepository.Create(guildEnt);
                 uow.Complete();
                 return conv.Convert(guildEntity);
             }
@@ -45,8 +45,20 @@ namespace MyVolunteerBLL.Services
         {
             using (var uow = _facade.UnitOfWork)
             {
-                var guildEntity = uow.GuildRepository.Get(Id);
-                return conv.Convert(guildEntity);
+                var guildEntity = conv.Convert(uow.GuildRepository.Get(Id));
+
+                /*if(guildEntity.UserIds != null)
+                {
+                    guildEntity.Users = guildEntity.UserIds
+                        .Select(id => uConv.Convert(uow.UserRepository.Get(id)))
+                        .ToList();
+                }*/
+
+                guildEntity.Users = uow.UserRepository.GetAllById(guildEntity.UserIds)
+                    .Select(u => uConv.Convert(u))
+                    .ToList();
+
+                return guildEntity;
             }
         }
 
@@ -54,25 +66,40 @@ namespace MyVolunteerBLL.Services
         {
             using (var uow = _facade.UnitOfWork)
             {
-               return uow.GuildRepository.GetAll().Select(g => conv.Convert(g)).ToList();
+                return uow.GuildRepository.GetAll().Select(g => conv.Convert(g)).ToList();
             }
         }
 
         public GuildBO Update(GuildBO guild)
         {
-            using(var uow = _facade.UnitOfWork)
+            using (var uow = _facade.UnitOfWork)
             {
-                var guildEntity = uow.GuildRepository.Get(guild.Id);
-                if(guildEntity == null)
+                var guildFromDB = uow.GuildRepository.Get(guild.Id);
+                if (guildFromDB == null)
                 {
                     throw new InvalidOperationException("Guild not found");
                 }
-                guildEntity.GuildName = guild.GuildName;
-                guildEntity.Description = guild.Description;
+
+                var guildUpdated = conv.Convert(guild);
+                guildFromDB.GuildName = guildUpdated.GuildName;
+                guildFromDB.Description = guildUpdated.Description;
+
+                guildFromDB.Users.RemoveAll(
+                    gu => !guildUpdated.Users.Exists(
+                        u => u.UserId == gu.UserId &&
+                        u.GuildId == gu.GuildId));
+
+                guildUpdated.Users.RemoveAll(
+                    gu => guildFromDB.Users.Exists(
+                        u => u.UserId == gu.UserId &&
+                        u.GuildId == gu.GuildId));
+
+                guildFromDB.Users.AddRange(
+                    guildUpdated.Users);
 
                 uow.Complete();
 
-                return conv.Convert(guildEntity);
+                return conv.Convert(guildFromDB);
             }
         }
     }

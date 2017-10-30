@@ -10,8 +10,9 @@ namespace MyVolunteerBLL.Services
     public class UserService : IUserService
     {
         UserConverter conv = new UserConverter();
+        GuildConverter gConv = new GuildConverter();
         DALFacade _facade;
-       
+
         public UserService(DALFacade facade)
         {
             _facade = facade;
@@ -41,7 +42,20 @@ namespace MyVolunteerBLL.Services
         {
             using (var uow = _facade.UnitOfWork)
             {
-                return conv.Convert(uow.UserRepository.Get(Id));
+                var user = conv.Convert(uow.UserRepository.Get(Id));
+
+                /*if(user.GuildIds != null)
+                {
+                    user.Guilds = user.GuildIds
+                        .Select(id => gConv.Convert(uow.GuildRepository.Get(id)))
+                        .ToList();
+                }*/
+
+                user.Guilds = uow.GuildRepository.GetAllById(user.GuildIds)
+                    .Select(g => gConv.Convert(g))
+                    .ToList();
+
+                return user;
             }
         }
 
@@ -63,10 +77,26 @@ namespace MyVolunteerBLL.Services
                 {
                     throw new InvalidOperationException("User not found");
                 }
-                userFromDB.FirstName = user.FirstName;
-                userFromDB.LastName = user.LastName;
-                userFromDB.Email = user.Email;
-                userFromDB.Address = user.Address;
+
+                var userUpdated = conv.Convert(user);
+
+                userFromDB.FirstName = userUpdated.FirstName;
+                userFromDB.LastName = userUpdated.LastName;
+                userFromDB.Email = userUpdated.Email;
+                userFromDB.Address = userUpdated.Address;
+
+                userFromDB.Guilds.RemoveAll(
+                    gu => !userUpdated.Guilds.Exists(
+                        g => g.GuildId == gu.GuildId &&
+                        g.UserId == gu.UserId));
+
+                userUpdated.Guilds.RemoveAll(
+                    gu => userFromDB.Guilds.Exists(
+                        g => g.GuildId == gu.GuildId &&
+                        g.UserId == gu.UserId));
+
+                userFromDB.Guilds.AddRange(
+                    userUpdated.Guilds);
 
 
                 uow.Complete();

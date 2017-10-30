@@ -38,7 +38,7 @@ namespace MyVolunteerRestAPI
                     new GuildBO()
                     {
                         GuildName = "SmedeLaug",
-                        Description = "Bravo"
+                        Description = "Bravo",
                     });
 
                 var guild2 = facade.GuildService.Create(
@@ -55,7 +55,7 @@ namespace MyVolunteerRestAPI
                          LastName = "Fjord",
                          Email = "hot@gmail.com",
                          Address = "LivingStreet",
-                         Guilds = new List<GuildBO>() { guild1 }
+                    GuildIds = new List<int>() { guild1.Id }
                      });
                 var user2 = facade.UserService.Create(
                     new UserBO()
@@ -64,10 +64,8 @@ namespace MyVolunteerRestAPI
                         LastName = "Bravo",
                         Email = "Lillemand@gmail.com",
                         Address = "HeroCity",
-                    Guilds = new List<GuildBO>() { guild1 }
+                    GuildIds = new List<int>() { guild1.Id, guild2.Id }
                     });
-
-
             }
 
             app.UseMvc();

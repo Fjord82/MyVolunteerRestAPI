@@ -20,9 +20,9 @@ namespace MyVolunteerBLL.Converters
                 Id = guild.Id,
                 GuildName = guild.GuildName,
                 Description = guild.Description,
-                Users = guild.UserIds?.Select(u => new GuildUser()
+                Users = guild.UserIds?.Select(uID => new GuildUser()
                 {
-                    UserId = u,
+                    UserId = uID,
                     GuildId = guild.Id
                 }).ToList()
             };
@@ -40,16 +40,17 @@ namespace MyVolunteerBLL.Converters
                 Id = guild.Id,
                 GuildName = guild.GuildName,
                 Description = guild.Description,
-                //UserIds = guild.Users?.Select(u => u.UserId).ToList()
-                Users = guild.Users?.Select(u => new UserBO()
+                UserIds = guild.Users?.Select(u => u.UserId).ToList(),
+                /*Users = guild.Users?.Select(u => new UserBO()
                 {
-                    Id = u.UserId,
+                    Id = u.GuildId,
                     FirstName = u.User?.FirstName,
                     LastName = u.User?.LastName,
                     Email = u.User?.Email,
                     Address = u.User?.Address,
                     PhoneNumber = u.User?.PhoneNumber
-                }).ToList()
+                }).ToList()*/
+
             };
         }
     }

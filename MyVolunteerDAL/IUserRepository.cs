@@ -10,6 +10,8 @@ namespace MyVolunteerDAL
 
         //R - Read
         List<User> GetAll();
+        IEnumerable<User> GetAllById(List<int> ids);
+
         User Get(int Id);
 
         //U - Update
