@@ -1,8 +1,7 @@
-﻿using System;
-using MyVolunteerDAL.Context;
+﻿using MyVolunteerDAL.Context;
 using MyVolunteerDAL.Repositories;
 
-namespace MyVolunteerDAL.UnitOfWork
+namespace MyVolunteerDAL.UOW
 {
     public class UnitOfWork : IUnitOfWork
     {
@@ -14,7 +13,7 @@ namespace MyVolunteerDAL.UnitOfWork
         public UnitOfWork()
         {
             _context = new MyVolunteerAppContext();
-            UserRepository = new UserRepositoryEFMemory(_context);
+            UserRepository = new UserRepository(_context);
             GuildRepository = new GuildRepository(_context);
         }
 

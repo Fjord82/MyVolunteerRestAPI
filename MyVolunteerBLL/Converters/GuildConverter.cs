@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using MyVolunteerBLL.BusinessObjects;
 using MyVolunteerDAL.Entities;
 
@@ -6,6 +7,7 @@ namespace MyVolunteerBLL.Converters
 {
     public class GuildConverter
     {
+
         internal Guild Convert(GuildBO guild)
         {
             if (guild == null)
@@ -18,7 +20,11 @@ namespace MyVolunteerBLL.Converters
                 Id = guild.Id,
                 GuildName = guild.GuildName,
                 Description = guild.Description,
-                User = new UserConverter().Convert(guild.User)
+                Users = guild.UserIds?.Select(uID => new GuildUser()
+                {
+                    UserId = uID,
+                    GuildId = guild.Id
+                }).ToList()
             };
         }
 
@@ -34,7 +40,17 @@ namespace MyVolunteerBLL.Converters
                 Id = guild.Id,
                 GuildName = guild.GuildName,
                 Description = guild.Description,
-                User = new UserConverter().Convert(guild.User)
+                UserIds = guild.Users?.Select(u => u.UserId).ToList(),
+                /*Users = guild.Users?.Select(u => new UserBO()
+                {
+                    Id = u.GuildId,
+                    FirstName = u.User?.FirstName,
+                    LastName = u.User?.LastName,
+                    Email = u.User?.Email,
+                    Address = u.User?.Address,
+                    PhoneNumber = u.User?.PhoneNumber
+                }).ToList()*/
+
             };
         }
     }

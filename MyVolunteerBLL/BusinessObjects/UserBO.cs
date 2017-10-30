@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MyVolunteerBLL.BusinessObjects
@@ -27,5 +28,10 @@ namespace MyVolunteerBLL.BusinessObjects
         public string Email { get; set; }
 
         public string Address { get; set; }
+
+        public string PhoneNumber { get; set; }
+
+        public List<int> GuildIds { get; set; }
+        public List<GuildBO> Guilds { get; set; }
     }
 }

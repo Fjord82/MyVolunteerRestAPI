@@ -16,6 +16,24 @@ namespace MyVolunteerDAL.Context
             
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<GuildUser>()
+                        .HasKey(gu => new {gu.GuildId, gu.UserId});
+
+            modelBuilder.Entity<GuildUser>()
+                        .HasOne(gu => gu.Guild)
+                        .WithMany(g => g.Users)
+                        .HasForeignKey(gu => gu.GuildId);
+
+            modelBuilder.Entity<GuildUser>()
+                        .HasOne(gu => gu.User)
+                        .WithMany(u => u.Guilds)
+                        .HasForeignKey(gu => gu.UserId);
+
+            base.OnModelCreating(modelBuilder);
+        }
+
         public DbSet<User> Users { get; set; }
         public DbSet<Guild> Guilds { get; set; }
     }
