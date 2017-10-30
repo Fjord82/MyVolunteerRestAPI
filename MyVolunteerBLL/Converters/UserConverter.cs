@@ -22,8 +22,8 @@ namespace MyVolunteerBLL.Converters
                 LastName = user.LastName,
                 Email = user.Email,
                 Address = user.Address,
-                Guilds = user.GuildIds?.Select(g => new GuildUser(){
-                    GuildId = g,
+                Guilds = user.GuildIds?.Select(gID => new GuildUser(){
+                    GuildId = gID,
                     UserId = user.Id
                 }).ToList()
             };
@@ -43,12 +43,12 @@ namespace MyVolunteerBLL.Converters
                 LastName = user.LastName,
                 Email = user.Email,
                 Address = user.Address,
-                //GuildIds = user.Guilds?.Select(g => g.GuildId).ToList()
-                Guilds = user.Guilds?.Select(g => new GuildBO(){
+                GuildIds = user.Guilds?.Select(g => g.GuildId).ToList(),
+                /*Guilds = user.Guilds?.Select(g => new GuildBO(){
                     Id = g.UserId,
                     GuildName = g.Guild?.GuildName,
                     Description = g.Guild?.Description
-                }).ToList()                
+                }).ToList()*/              
             };
         }
     }

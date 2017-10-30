@@ -43,5 +43,10 @@ namespace MyVolunteerDAL.Repositories
             //Returning a copy of the real list from DB - Securing valuable data by wrapping it
             return new List<User>(Users);
         }
+
+        public IEnumerable<User> GetAllById(List<int> ids)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

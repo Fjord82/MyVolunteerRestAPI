@@ -11,6 +11,8 @@ namespace MyVolunteerDAL
 
         //R - Read
         List<Guild> GetAll();
+        IEnumerable<Guild> GetAllById(List<int> ids);
+
         Guild Get(int Id);
 
         //U - Update

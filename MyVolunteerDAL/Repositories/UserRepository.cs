@@ -30,16 +30,23 @@ namespace MyVolunteerDAL.Repositories
 
         public User Get(int Id)
         {
-            return _context.Users.FirstOrDefault(xUser => xUser.Id == Id);
+            return _context.Users
+                           .Include(u => u.Guilds)
+                           .FirstOrDefault(xUser => xUser.Id == Id);
         }
 
         public List<User> GetAll()
         {
             return _context.Users
                            .Include(u => u.Guilds)
-                           .ThenInclude(gu => gu.Guild)
                            .ToList();
         }
 
+        public IEnumerable<User> GetAllById(List<int> ids)
+        {
+            if (ids == null) return null;
+                
+            return _context.Users.Where(u => ids.Contains(u.Id));
+        }
     }
 }
