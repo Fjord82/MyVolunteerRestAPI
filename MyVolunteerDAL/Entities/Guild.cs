@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace MyVolunteerDAL.Entities
 {
     public class Guild
@@ -9,7 +11,8 @@ namespace MyVolunteerDAL.Entities
 
         public string Description { get; set; }
 
-        public User User { get; set; }
+
+        public List<GuildUser> Users { get; set; }
 
     }
 }

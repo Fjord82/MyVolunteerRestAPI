@@ -17,6 +17,6 @@ namespace MyVolunteerDAL.Entities
 
         public string PhoneNumber { get; set; }
 
-        public List<Guild> guilds { get; set; }
+        public List<GuildUser> Guilds { get; set; }
     }
 }
