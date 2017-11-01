@@ -26,9 +26,16 @@ namespace MyVolunteerRestAPI.Controllers
 
         // GET api/users/5
         [HttpGet("{id}")]
-        public UserBO Get(int id)
+        public IActionResult Get(int id)
         {
-            return facade.UserService.Get(id);
+            var user = facade.UserService.Get(id);
+            if(user == null)
+            {
+                return StatusCode(404, "User not found");
+            }else
+            {
+                return StatusCode(200, user);
+            }
         }
 
         // POST api/users
@@ -59,11 +66,31 @@ namespace MyVolunteerRestAPI.Controllers
             }
         }
 
+        [HttpPut()]
+        public IActionResult Put()
+        {
+                return StatusCode(405, "Error! Invalid operation due to missing parameters");
+        }
+
         // DELETE api/users/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            facade.UserService.Delete(id);
+            var user = facade.UserService.Delete(id);
+            if(user == null)
+            {
+                return StatusCode(404, "User not found");
+            }else
+            {
+                return StatusCode(200, user);
+            }
+
+        }
+
+        [HttpDelete()]
+        public IActionResult Delete()
+        {
+            return StatusCode(405, "Error! Invalid operation due to missing parameters");
         }
     }
 }
