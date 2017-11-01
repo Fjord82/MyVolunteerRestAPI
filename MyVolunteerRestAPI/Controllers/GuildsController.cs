@@ -25,9 +25,17 @@ namespace MyVolunteerRestAPI.Controllers
 
         // GET api/guilds/5
         [HttpGet("{id}")]
-        public GuildBO Get(int id)
+        public IActionResult Get(int id)
         {
-            return facade.GuildService.Get(id);
+            var guild = facade.GuildService.Get(id);
+            if(guild == null)
+            {
+                return StatusCode(404, "Guild not found");
+            }
+            else
+            {
+                return StatusCode(200, guild);
+            }
         }
 
         // POST api/guilds
@@ -60,11 +68,31 @@ namespace MyVolunteerRestAPI.Controllers
             }
         }
 
+        [HttpPut()]
+        public IActionResult Put()
+        {
+            return StatusCode(405, "Error! Invalid operation due to missing parameters");
+        }
+
         // DELETE api/guilds/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            facade.GuildService.Delete(id);
+            var guild = facade.GuildService.Delete(id);
+            if (guild == null)
+            {
+                return StatusCode(404, "Guild not found");
+            }
+            else
+            {
+                return StatusCode(200, guild);
+            }
+        }
+
+        [HttpDelete()]
+        public IActionResult Delete()
+        {
+            return StatusCode(405, "Error! Invalid operation due to missing parameters");
         }
     }
 }

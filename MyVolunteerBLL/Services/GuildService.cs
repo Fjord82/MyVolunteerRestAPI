@@ -35,7 +35,11 @@ namespace MyVolunteerBLL.Services
         {
             using (var uow = _facade.UnitOfWork)
             {
-                var guildEntity = uow.GuildRepository.Delete(Id);
+                var guildEntity = uow.GuildRepository.Get(Id);
+                if(guildEntity != null)
+                {
+                    guildEntity = uow.GuildRepository.Delete(Id);
+                }
                 uow.Complete();
                 return conv.Convert(guildEntity);
             }
@@ -53,11 +57,12 @@ namespace MyVolunteerBLL.Services
                         .Select(id => uConv.Convert(uow.UserRepository.Get(id)))
                         .ToList();
                 }*/
-
-                guildEntity.Users = uow.UserRepository.GetAllById(guildEntity.UserIds)
-                    .Select(u => uConv.Convert(u))
-                    .ToList();
-
+                if (guildEntity != null)
+                {
+                    guildEntity.Users = uow.UserRepository.GetAllById(guildEntity.UserIds)
+                        .Select(u => uConv.Convert(u))
+                        .ToList();
+                }
                 return guildEntity;
             }
         }
