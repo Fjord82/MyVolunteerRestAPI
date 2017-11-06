@@ -13,6 +13,7 @@ namespace MyVolunteerDAL.UOW
         public UnitOfWork()
         {
             _context = new MyVolunteerAppContext();
+            _context.Database.EnsureCreated();
             UserRepository = new UserRepository(_context);
             GuildRepository = new GuildRepository(_context);
         }

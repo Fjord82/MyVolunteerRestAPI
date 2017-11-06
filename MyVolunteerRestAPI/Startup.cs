@@ -24,6 +24,8 @@ namespace MyVolunteerRestAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder => { builder.WithOrigins("Http://localhost:4200").AllowAnyHeader().AllowAnyMethod(); }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -32,40 +34,40 @@ namespace MyVolunteerRestAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                var facade = new BLLFacade();
+                //var facade = new BLLFacade();
 
-                var guild1 = facade.GuildService.Create(
-                    new GuildBO()
-                    {
-                        GuildName = "SmedeLaug",
-                        Description = "Bravo",
-                    });
+                //var guild1 = facade.GuildService.Create(
+                //    new GuildBO()
+                //    {
+                //        GuildName = "SmedeLaug",
+                //        Description = "Bravo",
+                //    });
 
-                var guild2 = facade.GuildService.Create(
-                    new GuildBO()
-                    {
-                        GuildName = "MølleLaug",
-                        Description = "Bravo"
-                    });
+                //var guild2 = facade.GuildService.Create(
+                //    new GuildBO()
+                //    {
+                //        GuildName = "MølleLaug",
+                //        Description = "Bravo"
+                //    });
 
-                var user1 = facade.UserService.Create(
-                     new UserBO()
-                     {
-                         FirstName = "Rasmus",
-                         LastName = "Fjord",
-                         Email = "hot@gmail.com",
-                         Address = "LivingStreet",
-                    GuildIds = new List<int>() { guild1.Id }
-                     });
-                var user2 = facade.UserService.Create(
-                    new UserBO()
-                    {
-                        FirstName = "Johnny",
-                        LastName = "Bravo",
-                        Email = "Lillemand@gmail.com",
-                        Address = "HeroCity",
-                    GuildIds = new List<int>() { guild1.Id, guild2.Id }
-                    });
+                //var user1 = facade.UserService.Create(
+                //     new UserBO()
+                //     {
+                //         FirstName = "Rasmus",
+                //         LastName = "Fjord",
+                //         Email = "hot@gmail.com",
+                //         Address = "LivingStreet",
+                //    GuildIds = new List<int>() { guild1.Id }
+                //     });
+                //var user2 = facade.UserService.Create(
+                //    new UserBO()
+                //    {
+                //        FirstName = "Johnny",
+                //        LastName = "Bravo",
+                //        Email = "Lillemand@gmail.com",
+                //        Address = "HeroCity",
+                //    GuildIds = new List<int>() { guild1.Id, guild2.Id }
+                //    });
             }
 
             app.UseMvc();
