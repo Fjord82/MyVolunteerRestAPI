@@ -25,7 +25,7 @@ namespace MyVolunteerRestAPI
         {
             services.AddMvc();
 
-            services.AddCors(o => o.AddPolicy("MyPolicy", builder => { builder.WithOrigins("Http://localhost:4200").AllowAnyHeader().AllowAnyMethod(); }));
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder => { builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin(); }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
