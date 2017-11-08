@@ -1,11 +1,14 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyVolunteerDAL", "MyVolunteerDAL\MyVolunteerDAL.csproj", "{0CDCF418-FD4E-4C8B-AF46-9F357C2407E9}"
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2006
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyVolunteerDAL", "MyVolunteerDAL\MyVolunteerDAL.csproj", "{0CDCF418-FD4E-4C8B-AF46-9F357C2407E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyVolunteerBLL", "MyVolunteerBLL\MyVolunteerBLL.csproj", "{E51C671C-BB3F-4BE4-85D3-A8754BB54571}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyVolunteerBLL", "MyVolunteerBLL\MyVolunteerBLL.csproj", "{E51C671C-BB3F-4BE4-85D3-A8754BB54571}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyVolunteerRestAPI", "MyVolunteerRestAPI\MyVolunteerRestAPI.csproj", "{07291DEA-D4D0-4D29-AB40-C6A84159ADF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyVolunteerRestAPI", "MyVolunteerRestAPI\MyVolunteerRestAPI.csproj", "{07291DEA-D4D0-4D29-AB40-C6A84159ADF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{8C757FB1-F382-4A10-8954-5740E37ABE39}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,5 +28,15 @@ Global
 		{07291DEA-D4D0-4D29-AB40-C6A84159ADF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07291DEA-D4D0-4D29-AB40-C6A84159ADF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07291DEA-D4D0-4D29-AB40-C6A84159ADF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C757FB1-F382-4A10-8954-5740E37ABE39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C757FB1-F382-4A10-8954-5740E37ABE39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C757FB1-F382-4A10-8954-5740E37ABE39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C757FB1-F382-4A10-8954-5740E37ABE39}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9EE10521-BB31-48C4-8F60-FD972FF72861}
 	EndGlobalSection
 EndGlobal
