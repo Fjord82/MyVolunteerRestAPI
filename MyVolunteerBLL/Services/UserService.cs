@@ -33,7 +33,7 @@ namespace MyVolunteerBLL.Services
             using (var uow = _facade.UnitOfWork)
             {
                 var newUser = uow.UserRepository.Get(Id);
-                if(newUser != null)
+                if (newUser != null)
                 {
                     newUser = uow.UserRepository.Delete(Id);
                 }
@@ -90,18 +90,21 @@ namespace MyVolunteerBLL.Services
                 userFromDB.Email = userUpdated.Email;
                 userFromDB.Address = userUpdated.Address;
 
-                userFromDB.Guilds.RemoveAll(
-                    gu => !userUpdated.Guilds.Exists(
-                        g => g.GuildId == gu.GuildId &&
-                        g.UserId == gu.UserId));
+                if (userUpdated.Guilds != null)
+                {
+                    userFromDB.Guilds.RemoveAll(
+                        gu => !userUpdated.Guilds.Exists(
+                            g => g.GuildId == gu.GuildId &&
+                            g.UserId == gu.UserId));
 
-                userUpdated.Guilds.RemoveAll(
-                    gu => userFromDB.Guilds.Exists(
-                        g => g.GuildId == gu.GuildId &&
-                        g.UserId == gu.UserId));
+                    userUpdated.Guilds.RemoveAll(
+                        gu => userFromDB.Guilds.Exists(
+                            g => g.GuildId == gu.GuildId &&
+                            g.UserId == gu.UserId));
 
-                userFromDB.Guilds.AddRange(
-                    userUpdated.Guilds);
+                    userFromDB.Guilds.AddRange(
+                        userUpdated.Guilds);
+                }
 
 
                 uow.Complete();

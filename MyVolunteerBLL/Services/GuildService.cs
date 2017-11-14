@@ -36,7 +36,7 @@ namespace MyVolunteerBLL.Services
             using (var uow = _facade.UnitOfWork)
             {
                 var guildEntity = uow.GuildRepository.Get(Id);
-                if(guildEntity != null)
+                if (guildEntity != null)
                 {
                     guildEntity = uow.GuildRepository.Delete(Id);
                 }
@@ -89,18 +89,21 @@ namespace MyVolunteerBLL.Services
                 guildFromDB.GuildName = guildUpdated.GuildName;
                 guildFromDB.Description = guildUpdated.Description;
 
-                guildFromDB.Users.RemoveAll(
-                    gu => !guildUpdated.Users.Exists(
-                        u => u.UserId == gu.UserId &&
-                        u.GuildId == gu.GuildId));
+                if (guildUpdated.Users != null)
+                {
+                    guildFromDB.Users.RemoveAll(
+                        gu => !guildUpdated.Users.Exists(
+                            u => u.UserId == gu.UserId &&
+                            u.GuildId == gu.GuildId));
 
-                guildUpdated.Users.RemoveAll(
-                    gu => guildFromDB.Users.Exists(
-                        u => u.UserId == gu.UserId &&
-                        u.GuildId == gu.GuildId));
+                    guildUpdated.Users.RemoveAll(
+                        gu => guildFromDB.Users.Exists(
+                            u => u.UserId == gu.UserId &&
+                            u.GuildId == gu.GuildId));
 
-                guildFromDB.Users.AddRange(
-                    guildUpdated.Users);
+                    guildFromDB.Users.AddRange(
+                        guildUpdated.Users);
+                }
 
                 uow.Complete();
 
